@@ -8,7 +8,39 @@ import {
   Callout, Panel, PanelType, IContextualMenuItem, autobind, ContextualMenu, IContextualMenuProps, DirectionalHint,
   css
 } from 'office-ui-fabric-react';
-import { IListItem } from '../../../common/IObjects';
+import { IListItem, IList, IOption } from '../../../common/IObjects';
+import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+//import { autobind, BaseComponent } from '../../../Utilities';
+
+export  interface ID {
+  Id?: number;
+  Title?: string;
+}
+
+
+let _items: any = [
+  {
+      key: '1',
+      text: "Item 1",
+  },
+  {
+    key: '2',
+    text: "Item 2",
+  },
+  {
+      key: '3',
+      text: "Item 3",
+  },
+  {
+    key: '4',
+    text: "Item 4",
+  },
+  {
+    ey: '5',
+    text: "Item 5",
+  },
+];
 
 
 export default class DeleteListItems extends React.Component<IDeleteListItemsProps,any> {
@@ -18,11 +50,14 @@ export default class DeleteListItems extends React.Component<IDeleteListItemsPro
     super(props);
     this.state = {
       allItems: [],
+      items: _items,
+      selectedItem: undefined,
       columns: this._setupColumns()
     };
 }
 
   public render(): React.ReactElement<IDeleteListItemsProps> {
+    let { selectedItem } = this.state.selectedItem;
    /*  return (
       <div className={ styles.deleteListItems }>
         <div className={ styles.container }>
@@ -41,8 +76,26 @@ export default class DeleteListItems extends React.Component<IDeleteListItemsPro
     ); */
 
     return (
+      //<div className='DropdownBasicExample'>
       <div>
+      
+      <Dropdown
+        className='Dropdown-example'
+        placeHolder='Select an Option'
+        label='Basic uncontrolled example:'
+        selectedKey={ (selectedItem ? selectedItem.key : undefined) }
+        id='Basicdrop1'
+        ariaLabel='Basic dropdown example'
+        options={
+          this.state.items
+        }
+      />
 
+      <PrimaryButton
+        text='Set focus'
+        onClick={ this.deleteListItems(selectedItem) }
+      />
+      
         <DetailsList
           items={ this.state.allItems }
           columns={ this.state.columns }
@@ -57,12 +110,44 @@ export default class DeleteListItems extends React.Component<IDeleteListItemsPro
 
  public componentDidMount() {
           debugger;
-        this.props.dataProvider.readListItems().then(
+        /* this.props.dataProvider.readListItems().then(
           //resolve
           (items: IListItem[]) => {
             debugger;
             this.setState({
               allItems: items
+                        });
+
+          },
+          //reject
+          (data: any) => {
+              this.setState({
+              allDocuments: [],
+              displayedDocuments: [],
+              isLoading: false,
+              isErrorOccured: true,
+              errorMessage: data
+            });
+          }
+        ).catch((ex) => {
+          debugger;
+          this.setState({
+            allDocuments: [],
+            displayedDocuments: [],
+            isLoading: false,
+            isErrorOccured: true,
+            errorMessage: ex.errorMessage
+          });
+
+        }); */
+
+        debugger;
+        this.props.dataProvider.readLists().then(
+          //resolve
+          (items: IOption[]) => {
+            debugger;
+            this.setState({
+              items: items
                         });
 
           },
@@ -116,5 +201,12 @@ export default class DeleteListItems extends React.Component<IDeleteListItemsPro
           ];
     
         return columnsSingleClient;
+      }
+
+      private deleteListItems(listName:any):void {
+
+        this.props.dataProvider.readListItems(listName);
+
+        
       }
 }

@@ -53,7 +53,7 @@ export default class DeleteListItemsWebPart extends BaseClientSideWebPart<IDelet
       {
         description: "Hello",
         dataProvider: this._dataProvider,
-        listUrl: "UserReporting"        
+        listUrl: "TestList"        
       }
     );
 
