@@ -10,10 +10,8 @@ export default class MockupDataProvider implements IDataProvider {
 
     private _listAbsoluteUrl: string;
     
-        constructor(libraryUrl: string) {
-            if (libraryUrl) {
-                this._listAbsoluteUrl = libraryUrl;
-            }
+        constructor() {
+            
         }
     
         public validateSettings(): boolean {
@@ -84,7 +82,7 @@ export default class MockupDataProvider implements IDataProvider {
             });
     }
 
-    public async deleteListItems (_items: IListItem[]): Promise<void> {
+    public async deleteListItems (_items: IListItem[], listName: string): Promise<void> {
                 
     }
 }

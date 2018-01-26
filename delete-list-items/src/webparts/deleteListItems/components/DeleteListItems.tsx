@@ -54,26 +54,20 @@ export default class DeleteListItems extends React.Component<IDeleteListItemsPro
       selectedItem: undefined,
       columns: this._setupColumns()
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 }
 
+     handleChange(event) {
+          this.setState({selectedItem: event.text});
+      }
+
+      handleSubmit(event) {
+        debugger;
+        this.deleteListItems(this.state.selectedItem)
+      }
   public render(): React.ReactElement<IDeleteListItemsProps> {
-    let { selectedItem } = this.state.selectedItem;
-   /*  return (
-      <div className={ styles.deleteListItems }>
-        <div className={ styles.container }>
-          <div className={ styles.row }>
-            <div className={ styles.column }>
-              <span className={ styles.title }>Welcome to SharePoint!</span>
-              <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-              <p className={ styles.description }>{escape(this.props.description)}</p>
-              <a href="https://aka.ms/spfx" className={ styles.button }>
-                <span className={ styles.label }>Learn more</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    ); */
+    //let { selectedItem } = this.state.selectedItem;
 
     return (
       //<div className='DropdownBasicExample'>
@@ -83,17 +77,18 @@ export default class DeleteListItems extends React.Component<IDeleteListItemsPro
         className='Dropdown-example'
         placeHolder='Select an Option'
         label='Basic uncontrolled example:'
-        selectedKey={ (selectedItem ? selectedItem.key : undefined) }
+        //selectedKey={ (selectedItem ? selectedItem.key : undefined) }
         id='Basicdrop1'
         ariaLabel='Basic dropdown example'
+        onChanged={this.handleChange}
         options={
           this.state.items
         }
       />
 
       <PrimaryButton
-        text='Set focus'
-        onClick={ this.deleteListItems(selectedItem) }
+        text='Delete Items'
+        onClick={this.handleSubmit }
       />
       
         <DetailsList
@@ -205,6 +200,7 @@ export default class DeleteListItems extends React.Component<IDeleteListItemsPro
 
       private deleteListItems(listName:any):void {
 
+        debugger;
         this.props.dataProvider.readListItems(listName);
 
         

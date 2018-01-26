@@ -10,5 +10,5 @@ export default interface IDataProvider
     
     readLists(): Promise<IOption[]>;  
     
-    deleteListItems(_items: IListItem[]): Promise<void>;
+    deleteListItems(_items: IListItem[],listName: string): Promise<void>;
 }

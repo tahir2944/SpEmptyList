@@ -13,9 +13,9 @@ export default class SharePointDataProvider implements IDataProvider {
     private _listAbsoluteUrl: string;
     private _webAbsoluteUrl: string;
 
-    constructor(value: IWebPartContext, listUrl: string) {
+    constructor(value: IWebPartContext) {
         this._webPartContext = value;
-        this._listAbsoluteUrl = listUrl;
+        
       /*   this._libraryAbsoluteUrl =
             libraryUrl.lastIndexOf("/") == libraryUrl.length - 1 ?
                 libraryUrl.substr(0, libraryUrl.length - 1) :
@@ -67,7 +67,7 @@ export default class SharePointDataProvider implements IDataProvider {
                     };
                 });
                     
-                this.deleteListItems(_items);
+                this.deleteListItems(_items, listName);
                 /* // intentionally set wrong query to see console errors...
                 const failResponse: IResponseItem[] = await web.lists
                   .getByTitle(libraryName)
@@ -91,13 +91,14 @@ export default class SharePointDataProvider implements IDataProvider {
         
         }   
         
-        public async deleteListItems (_items: IListItem[]): Promise<void> {
+        public async deleteListItems (_items: IListItem[], listName: string): Promise<void> {
+            
             debugger;
             const web: Web = new Web(this._webAbsoluteUrl);
             
             _items.map((item: IListItem) => {
                 debugger;
-                let list = web.lists.getByTitle("UserReporting");
+                let list = web.lists.getByTitle(listName);
                 list.items.getById(item.Id).delete().then(_ => {});
             });
         }

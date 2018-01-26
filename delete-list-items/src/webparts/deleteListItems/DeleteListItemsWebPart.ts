@@ -25,20 +25,13 @@ export default class DeleteListItemsWebPart extends BaseClientSideWebPart<IDelet
  private _dataProvider: IDataProvider;
 
  protected onInit(): Promise<void> {
-  this.properties.description = "UserReporting";
+  //this.properties.description = "UserReporting";
   if (DEBUG && Environment.type === EnvironmentType.Local) {
-    this._dataProvider = new MockupDataProvider(this.properties.description);
+    this._dataProvider = new MockupDataProvider();
   } 
   else {
     debugger;
-    if (this.properties.description) {
-      this._dataProvider = new SharePointDataProvider(this.context, this.properties.description);
-    }
-    
-  else {
-      //the WebPart property is not filled
-      //do nothing, the Documents component will display notification message
-    }
+        this._dataProvider = new SharePointDataProvider(this.context);
   }
     return super.onInit();
     
@@ -52,8 +45,8 @@ export default class DeleteListItemsWebPart extends BaseClientSideWebPart<IDelet
       DeleteListItems,
       {
         description: "Hello",
-        dataProvider: this._dataProvider,
-        listUrl: "TestList"        
+        dataProvider: this._dataProvider
+               
       }
     );
 
