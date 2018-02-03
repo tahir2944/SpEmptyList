@@ -37,6 +37,12 @@
     @include ms-fontColor-white;
   }
 
+  .loadingWrapper
+{
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
   .button {
     // Our button
     text-decoration: none;

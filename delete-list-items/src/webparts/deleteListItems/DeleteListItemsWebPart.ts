@@ -25,7 +25,7 @@ export default class DeleteListItemsWebPart extends BaseClientSideWebPart<IDelet
  private _dataProvider: IDataProvider;
 
  protected onInit(): Promise<void> {
-  //this.properties.description = "UserReporting";
+
   if (DEBUG && Environment.type === EnvironmentType.Local) {
     this._dataProvider = new MockupDataProvider();
   } 

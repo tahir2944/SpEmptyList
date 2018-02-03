@@ -15,7 +15,7 @@ export default class SharePointDataProvider implements IDataProvider {
 
     constructor(value: IWebPartContext) {
         this._webPartContext = value;
-        
+        //this._listAbsoluteUrl = listUrl;
       /*   this._libraryAbsoluteUrl =
             libraryUrl.lastIndexOf("/") == libraryUrl.length - 1 ?
                 libraryUrl.substr(0, libraryUrl.length - 1) :
@@ -34,9 +34,11 @@ export default class SharePointDataProvider implements IDataProvider {
         return true;
     }
     
-        public async readListItems(listName: any): Promise<IListItem[]> {
+        public async readListItems(listName: any): Promise<number> {
         debugger;
             let _items: IListItem[] = [];
+            let deleteCount: any = 0;
+
             this._listAbsoluteUrl = listName;
             /*   this._libraryAbsoluteUrl =
                   libraryUrl.lastIndexOf("/") == libraryUrl.length - 1 ?
@@ -67,7 +69,7 @@ export default class SharePointDataProvider implements IDataProvider {
                     };
                 });
                     
-                this.deleteListItems(_items, listName);
+                deleteCount = this.deleteListItems(_items, listName);
                 /* // intentionally set wrong query to see console errors...
                 const failResponse: IResponseItem[] = await web.lists
                   .getByTitle(libraryName)
@@ -84,22 +86,25 @@ export default class SharePointDataProvider implements IDataProvider {
             
             
             
-            return new Promise<IListItem[]>((resolve) => {
-                    resolve(_items);
+            return new Promise<number>((resolve) => {
+                    resolve(deleteCount);
                 });
         
         
         }   
         
-        public async deleteListItems (_items: IListItem[], listName: string): Promise<void> {
-            
+        public async deleteListItems (_items: IListItem[], listName: string): Promise<number> {
             debugger;
             const web: Web = new Web(this._webAbsoluteUrl);
-            
+            let deleteCount: number = 0;
             _items.map((item: IListItem) => {
                 debugger;
                 let list = web.lists.getByTitle(listName);
-                list.items.getById(item.Id).delete().then(_ => {});
+                list.items.getById(item.Id).delete().then(_ => { deleteCount++ });
+
+            });
+            return new Promise<number>((resolve) => {
+                resolve(deleteCount);
             });
         }
 

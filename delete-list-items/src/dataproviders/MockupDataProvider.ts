@@ -22,32 +22,11 @@ export default class MockupDataProvider implements IDataProvider {
             return true;
         }
 
-    public readListItems(): Promise<IListItem[]> {
+    public readListItems(): Promise<number> {
         debugger;
-        let _items: IListItem[] = [
-            {
-                Id: 1,
-                Title: "Item 1",
-            },
-            {
-                Id: 1,
-                Title: "Item 2",
-            },
-            {
-                Id: 1,
-                Title: "Item 3",
-            },
-            {
-                Id: 1,
-                Title: "Item 4",
-            },
-            {
-                Id: 1,
-                Title: "Item 5",
-            },
-        ];
-        return new Promise<IListItem[]>((resolve) => {
-                resolve(_items);
+        let deleteCount = 0;
+        return new Promise<number>((resolve) => {
+                resolve(deleteCount);
             });
     }   
     
@@ -82,7 +61,10 @@ export default class MockupDataProvider implements IDataProvider {
             });
     }
 
-    public async deleteListItems (_items: IListItem[], listName: string): Promise<void> {
-                
+    public async deleteListItems (_items: IListItem[], listName: string): Promise<number> {
+        let deleteCount = 0;
+        return new Promise<number>((resolve) => {
+                resolve(deleteCount);
+            });
     }
 }
