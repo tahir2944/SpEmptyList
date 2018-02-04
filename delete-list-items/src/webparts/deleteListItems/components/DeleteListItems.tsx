@@ -93,7 +93,7 @@ export default class DeleteListItems extends React.Component<IDeleteListItemsPro
       <Dropdown
         className='Dropdown-example'
         placeHolder='Select an Option'
-        label='Basic uncontrolled example:'
+        label='Please Select the List below:'
         //selectedKey={ (selectedItem ? selectedItem.key : undefined) }
         id='Basicdrop1'
         ariaLabel='Basic dropdown example'
